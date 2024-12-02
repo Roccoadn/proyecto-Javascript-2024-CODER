@@ -1,0 +1,158 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Bebas Neue", sans-serif;
+    background-color: #F6F6F6;
+}
+/* ESTILOS HEADER */
+header{
+    padding: 15px 0;
+    display: flex;
+    height: 90px;
+    justify-content: space-between;
+    box-shadow: 0px 0px 35px rgba(0,0,0,0.1);
+    margin-bottom: 5rem;
+    .logo{
+        img{
+            margin-left: 30px;
+            max-width: 120px;
+        }
+    }
+    #botonCarrito{
+        box-shadow: 0px 0px 35px rgba(0,0,0,0.1);
+        position: fixed;
+        top: 25px;
+        right: 30px;
+        cursor: pointer;
+        z-index: 1;
+        border: none;
+        i{
+            background-color: #700f0f;
+            mix-blend-mode: multiply;
+            font-size: x-large;
+            padding: 5px;
+            border-radius: 6px;
+        }
+        i:hover{
+            transition: all 0.5s;
+            background-color: #c2495d;
+        }
+    }
+}
+
+/* ESTILOS HEADER */
+/* CARDS PRODUCTOS */
+#productos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    text-align: center;
+    img{
+        max-height: 200px;
+    }
+    h2{
+        font-family: "Rubik", sans-serif;
+    }
+    p{
+        font-weight: bold;
+        margin-top: 15px;
+    }
+    div{
+        width: 300px;
+        box-shadow: 0px 0px 35px rgba(0,0,0,0.1);
+        margin-bottom: 5rem;
+        border: solid 0.1px rgba(0,0,0,0.1);
+        padding-bottom: 20px;
+    }
+    button{
+        color: #F6F6F6;
+        transition: all 0.5s;
+        width: 150px;
+        cursor: pointer;
+        margin-top: 15px;
+        padding: 10px;
+        border: 0.5px solid;
+        border-radius: 8px;
+        background-color: #700f0f;
+    }
+    button:hover{
+        background-color: #c2495d;
+    }
+}
+
+/* CARDS PRODUCTOS */
+
+/* HEADER CARRITO */
+#topCarrito{
+    height: 80px;
+    background-color: #F6F6F6;
+    h2 {
+        margin-top: 27px;
+        margin-left: 20px;
+    }
+}
+/* HEADER CARRITO */
+
+/* PRODUCTOS CARRITO */
+#productosCarrito{
+    z-index: 1;
+    overflow-y: auto;
+    max-height: 100%;
+    .botonesEliminar{
+        background-color: #c2495d;
+        padding: 3px;
+        width: 35px;
+        margin: 10px 40%;
+    }
+    .botonesEliminar:hover{
+        background-color: #79303c;
+        transition: all 0.5s;
+    }
+    img{
+        width: 148px;
+    }
+    div {
+        width: 150px;
+        margin-top: 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+        border: 1px solid rgba(0,0,0,0.1);
+        h3, p{
+            padding-left: 15px;
+        }
+    }
+}
+
+#totalCarrito{
+    font-size: xx-large;
+    text-align: center;
+    background-color: #700f0f;
+    color: white;
+}
+/* PRODUCTOS CARRITO */
+
+/* ESTILO TRIGGER DEL PANEL HORIZONTAL */
+.panelVisible {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 300px;
+    height: 100%;
+    transition: right 0.5s ease;
+    box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.1);
+}
+.panelOculto {
+    position: fixed;
+    right: -300px;
+    transition: right 0.1s ease;
+}
+/* ESTILO TRIGGER DEL PANEL HORIZONTAL */
+
+footer{
+    padding: 90px;
+    text-align: center;
+}
