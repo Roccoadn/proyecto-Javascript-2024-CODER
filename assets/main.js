@@ -31,7 +31,7 @@ const panelCarrito = document.getElementById("panelCarrito");
 const topCarrito = document.getElementById("topCarrito");
 const productosCarrito = document.getElementById("productosCarrito");
 const botonCarrito = document.getElementById("botonCarrito");
-const totalCarrito = document.getElementById("totalCarrito");
+const totalCarrito = document.getElementById("totalDeCompra");
 
 const carritoTienda = []
 
@@ -82,9 +82,11 @@ function actualizadorCarrito() {
         productosCarrito.innerHTML += `
             <div class="producto">
                 <img src="${el.img}"/>
+                <div>
                 <h3>${el.nombre}</h3>
                 <p>Precio: $${el.precio}</p>
                 <p>Cantidad: ${el.cantidad}</p>
+                </div>
                 <button class="botonesEliminar" data-index="${index}">X</button>
             </div>
         `;
@@ -124,7 +126,7 @@ function abrirCerrarCarrito(){
 
 document.addEventListener("DOMContentLoaded", () => {
     items();
-    actualizadorCarrito();
-    abrirCerrarCarrito();
+    abrirCerrarCarrito()
     cargarCarritoDeLocalStorage();
+    guardarCarritoEnLocalStorage();
 })
