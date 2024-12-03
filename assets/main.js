@@ -32,6 +32,7 @@ const topCarrito = document.getElementById("topCarrito");
 const productosCarrito = document.getElementById("productosCarrito");
 const botonCarrito = document.getElementById("botonCarrito");
 const totalCarrito = document.getElementById("totalDeCompra");
+const botonPagar = document.getElementById("botonPagar");
 
 const carritoTienda = []
 
@@ -87,7 +88,7 @@ function actualizadorCarrito() {
                 <p>Precio: $${el.precio}</p>
                 <p>Cantidad: ${el.cantidad}</p>
                 </div>
-                <button class="botonesEliminar" data-index="${index}">X</button>
+                <button class="botonesEliminar">X</button>
             </div>
         `;
     });
@@ -105,11 +106,32 @@ function actualizadorCarrito() {
     const botonesEliminar = document.querySelectorAll(".botonesEliminar");
     botonesEliminar.forEach(boton => {
         boton.addEventListener("click", (e) => {
-            const index = e.target.getAttribute("data-index");
-            carritoTienda.splice(index, 1);
+            const nombreProducto = e.target.parentElement.querySelector("h3").innerText;
+            const itemABorrar = carritoTienda.find(el => el.nombre === nombreProducto);
+            
+            if (itemABorrar.cantidad === 1){
+                carritoTienda.splice(carritoTienda.indexOf(itemABorrar), 1)
+            }
+            else{ 
+                itemABorrar.cantidad = itemABorrar.cantidad - 1
+            }
             actualizadorCarrito();
         });
     });
+}
+
+function pagar(){
+    botonPagar.addEventListener("click", (evento) => {
+        if (carritoTienda.length >= 1){
+            panelCarrito.classList.add("panelOculto")
+            carritoTienda.splice(0, 10);
+            alert("Compra realizada con exito!")
+        }
+        else{
+            alert("No hay productos en el carrito.")
+        }
+        actualizadorCarrito();
+    })
 }
 
 function abrirCerrarCarrito(){
@@ -127,6 +149,7 @@ function abrirCerrarCarrito(){
 document.addEventListener("DOMContentLoaded", () => {
     items();
     abrirCerrarCarrito()
-    cargarCarritoDeLocalStorage();
     guardarCarritoEnLocalStorage();
+    pagar();
 })
+
