@@ -125,10 +125,16 @@ function pagar(){
         if (carritoTienda.length >= 1){
             panelCarrito.classList.add("panelOculto")
             carritoTienda.splice(0, 10);
-            alert("Compra realizada con exito!")
+            Swal.fire({
+                text: "¡Compra realizada con exito!",
+                icon: "success"
+              });
         }
         else{
-            alert("No hay productos en el carrito.")
+            Swal.fire({
+                text: "¡No hay productos en tu carrito!",
+                icon: "error"
+            });
         }
         actualizadorCarrito();
     })

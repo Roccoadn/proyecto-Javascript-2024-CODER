@@ -47,7 +47,7 @@ header{
 /* CARDS PRODUCTOS */
 #productos{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, auto);
     justify-items: center;
     text-align: center;
     img{
@@ -183,4 +183,16 @@ header{
 footer{
     padding: 90px;
     text-align: center;
+}
+
+@media screen and (max-width: 650px)  {
+    #productos{
+        grid-template-columns: repeat(1, 100%);
+    }
+}
+
+@media screen and (min-width: 651px) and (max-width: 992px){
+    #productos{
+        grid-template-columns: repeat(2, 50%);
+    }
 }
