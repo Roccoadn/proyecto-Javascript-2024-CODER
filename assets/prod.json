@@ -1,0 +1,56 @@
+[
+    {
+        "img": "./assets/img/air-alpha-force-a.jpg",
+        "nombre": "Air Alpha Force",
+        "id": 1,
+        "precio": 95000
+    },
+    {
+        "img": "./assets/img/air-force-1-a.jpg",
+        "nombre": "Air Force 1",
+        "id": 2,
+        "precio": 120000
+    },
+    {
+        "img": "./assets/img/air-force-1-black-a.jpg",
+        "nombre": "Air Force 1 Black",
+        "id": 3,
+        "precio": 120000
+    },
+    {
+        "img": "./assets/img/air-force-1-green-a.jpg",
+        "nombre": "Air Force 1 Verdes",
+        "id": 4,
+        "precio": 150000
+    },
+    {
+        "img": "./assets/img/air-jordan-1-retro-a.jpg",
+        "nombre": "Air Jordan 1 Retro",
+        "id": 5,
+        "precio": 285000
+    },
+    {
+        "img": "./assets/img/sb-zoom-janoskiog-a.jpg",
+        "nombre": "SB Zoom Janoski OG",
+        "id": 6,
+        "precio": 263000
+    },
+    {
+        "img": "./assets/img/nike-dunk-low-retro-a.jpg",
+        "nombre": "Dunk Low Retro",
+        "id": 7,
+        "precio": 170000
+    },
+    {
+        "img": "./assets/img/air-jordan-3-retro-a.jpg",
+        "nombre": "Air Jordan 3 Retro",
+        "id": 8,
+        "precio": 300000
+    },
+    {
+        "img": "./assets/img/air-jordan-1-zoom-a.jpg",
+        "nombre": "Air Jordan 1 Zoom",
+        "id": 9,
+        "precio": 135000
+    }
+]

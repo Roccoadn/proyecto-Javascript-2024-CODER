@@ -1,19 +1,16 @@
-// LOCALSTORAGE //
-// LOCALSTORAGE //
-// ARRAY PRODUCTOS //
-const productosTienda = [
-    { img: "./assets/img/air-alpha-force-a.jpg", nombre: "Air Alpha Force", id: 1, precio: 95000},
-    { img: "./assets/img/air-force-1-a.jpg", nombre: "Air Force 1", id: 2, precio: 120000},
-    { img: "./assets/img/air-force-1-black-a.jpg", nombre: "Air Force 1 Black", id: 3, precio: 120000},
-    { img: "./assets/img/air-force-1-green-a.jpg", nombre: "Air Force 1 Verdes", id: 4, precio: 150000},
-    { img: "./assets/img/air-jordan-1-retro-a.jpg", nombre: "Air Jordan 1 Retro", id: 5, precio: 285000},
-    { img: "./assets/img/sb-zoom-janoskiog-a.jpg", nombre: "SB Zoom Janoski OG", id: 6, precio: 263000},
-    { img: "./assets/img/nike-dunk-low-retro-a.jpg", nombre: "Dunk Low Retro", id: 7, precio: 170000},
-    { img: "./assets/img/air-jordan-3-retro-a.jpg", nombre: "Air Jordan 3 Retro", id: 8, precio: 300000},
-    { img: "./assets/img/air-jordan-1-zoom-a.jpg", nombre: "Air Jordan 1 Zoom", id: 9, precio: 135000},
-]
-// ARRAY PRODUCTOS //
+function guardarCarritoEnLocalStorage() {
+    localStorage.setItem("carritoTienda", JSON.stringify(carritoTienda));
+    actualizadorCarrito();
+}
 
+function cargarCarritoDeLocalStorage() {
+    const carritoGuardado = localStorage.getItem("carritoTienda");
+    if (carritoGuardado) {
+        carritoTienda.length = 0;
+        carritoTienda.push(...JSON.parse(carritoGuardado));
+        actualizadorCarrito();
+    }
+}
 const productos = document.getElementById("productos")
 const header = document.getElementById("navbar");
 const panelCarrito = document.getElementById("panelCarrito");
@@ -24,11 +21,25 @@ const totalCarrito = document.getElementById("totalDeCompra");
 const botonPagar = document.getElementById("botonPagar");
 
 const carritoTienda = []
+let productosTienda = [];
 
-// CARDS PRODUCTOS //
+async function cargarProductos() {
+    try {
+        const response = await fetch('../assets/prod.json');
+        if (!response.ok) throw new Error("No se pudo cargar el archivo JSON");
+       productosTienda = await response.json();
+        console.log("Productos cargados:", productosTienda);
+        items();
+    } catch (error) {
+        console.error("Error al cargar los productos:", error);
+    }
+}
+
+console.log(productos);
 const items = () => {
     const productos = document.getElementById("productos");
     productos.innerHTML = "";
+    console.log("Datos para crear tarjetas:", productosTienda);
     
     productosTienda.forEach(el =>{
         productos.innerHTML +=`
@@ -59,11 +70,10 @@ const items = () => {
                 });
             }
             actualizadorCarrito();
+            guardarCarritoEnLocalStorage();
         });
     });
 };
-
-// CARDS PRODUCTOS //
 
 function actualizadorCarrito() {
     productosCarrito.innerHTML = "";
@@ -90,8 +100,6 @@ function actualizadorCarrito() {
                 return acc + el.cantidad;
             }, 0);
             
-            guardarCarritoEnLocalStorage();
-            
             const botonesEliminar = document.querySelectorAll(".botonesEliminar");
             botonesEliminar.forEach(boton => {
                 boton.addEventListener("click", (e) => {
@@ -105,6 +113,7 @@ function actualizadorCarrito() {
                 itemABorrar.cantidad = itemABorrar.cantidad - 1
             }
             actualizadorCarrito();
+            guardarCarritoEnLocalStorage();
         });
     });
 }
@@ -119,6 +128,7 @@ function pagar(){
                 icon: "success",
                 confirmButtonColor: "#700f0f",
               });
+              guardarCarritoEnLocalStorage();
         }
         else{
             Swal.fire({
@@ -143,21 +153,10 @@ function abrirCerrarCarrito(){
     });
 }
 
-function guardarCarritoEnLocalStorage() {
-    localStorage.setItem("carritoTienda", JSON.stringify(carritoTienda));
-}
-
-function cargarCarritoDeLocalStorage() {
-    const carritoGuardado = localStorage.getItem("carritoTienda");
-    if (carritoGuardado) {
-        carritoTienda = JSON.parse(carritoGuardado);
-        actualizadorCarrito();
-    }
-}
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async() => {
+    await cargarProductos();
     items();
     abrirCerrarCarrito()
-    guardarCarritoEnLocalStorage();
     cargarCarritoDeLocalStorage();
     pagar();
 })

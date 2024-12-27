@@ -176,10 +176,6 @@ footer{
     text-align: center;
 }
 
-.1:hover{
-    background-color: #700f0f;
-}
-
 @media screen and (max-width: 650px)  {
     #productos{
         grid-template-columns: repeat(1, 100%);
