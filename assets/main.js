@@ -1,15 +1,4 @@
 // LOCALSTORAGE //
-function guardarCarritoEnLocalStorage() {
-    localStorage.setItem("carritoTienda", JSON.stringify(carritoTienda));
-}
-
-function cargarCarritoDeLocalStorage() {
-    const carritoGuardado = localStorage.getItem("carritoTienda");
-    if (carritoGuardado) {
-        carritoTienda = JSON.parse(carritoGuardado);
-        actualizadorCarrito();
-    }
-}
 // LOCALSTORAGE //
 // ARRAY PRODUCTOS //
 const productosTienda = [
@@ -40,10 +29,10 @@ const carritoTienda = []
 const items = () => {
     const productos = document.getElementById("productos");
     productos.innerHTML = "";
-
+    
     productosTienda.forEach(el =>{
-    productos.innerHTML +=`
-        <div>
+        productos.innerHTML +=`
+        <div data-aos="fade-up" data-aos-duration="4000">
         <img src="${el.img}"/>
         <h2>${el.nombre}</h2>
         <p>$${el.precio}</p>
@@ -58,7 +47,7 @@ const items = () => {
             const productoExistente = carritoTienda.find(
                 item => item.nombre === productosTienda[index].nombre
             );
-
+            
             if (productoExistente) {
                 productoExistente.cantidad += 1;
             } else {
@@ -78,7 +67,7 @@ const items = () => {
 
 function actualizadorCarrito() {
     productosCarrito.innerHTML = "";
-
+    
     carritoTienda.forEach((el, index) => {
         productosCarrito.innerHTML += `
             <div class="producto">
@@ -89,24 +78,24 @@ function actualizadorCarrito() {
                 <p>Cantidad: ${el.cantidad}</p>
                 </div>
                 <button class="botonesEliminar">X</button>
-            </div>
-        `;
-    });
+                </div>
+                `;
+            });
+            
+            totalCarrito.innerText = "$" + carritoTienda.reduce((acc, el) => {
+                return acc + el.precio * el.cantidad;
+            }, 0);
 
-    totalCarrito.innerText = "$" + carritoTienda.reduce((acc, el) => {
-        return acc + el.precio * el.cantidad;
-    }, 0);
-
-    botonCarrito.children[0].innerText = carritoTienda.reduce((acc, el) => {
-        return acc + el.cantidad;
-    }, 0);
-
-    guardarCarritoEnLocalStorage();
-
-    const botonesEliminar = document.querySelectorAll(".botonesEliminar");
-    botonesEliminar.forEach(boton => {
-        boton.addEventListener("click", (e) => {
-            const nombreProducto = e.target.parentElement.querySelector("h3").innerText;
+            botonCarrito.children[0].innerText = carritoTienda.reduce((acc, el) => {
+                return acc + el.cantidad;
+            }, 0);
+            
+            guardarCarritoEnLocalStorage();
+            
+            const botonesEliminar = document.querySelectorAll(".botonesEliminar");
+            botonesEliminar.forEach(boton => {
+                boton.addEventListener("click", (e) => {
+                    const nombreProducto = e.target.parentElement.querySelector("h3").innerText;
             const itemABorrar = carritoTienda.find(el => el.nombre === nombreProducto);
             
             if (itemABorrar.cantidad === 1){
@@ -127,13 +116,15 @@ function pagar(){
             carritoTienda.splice(0, 10);
             Swal.fire({
                 text: "¡Compra realizada con exito!",
-                icon: "success"
+                icon: "success",
+                confirmButtonColor: "#700f0f",
               });
         }
         else{
             Swal.fire({
                 text: "¡No hay productos en tu carrito!",
-                icon: "error"
+                icon: "error",
+                confirmButtonColor: "#700f0f",
             });
         }
         actualizadorCarrito();
@@ -149,13 +140,26 @@ function abrirCerrarCarrito(){
             panelCarrito.classList.remove("panelVisible");
             panelCarrito.classList.add("panelOculto");
         }
-      });
+    });
 }
 
+function guardarCarritoEnLocalStorage() {
+    localStorage.setItem("carritoTienda", JSON.stringify(carritoTienda));
+}
+
+function cargarCarritoDeLocalStorage() {
+    const carritoGuardado = localStorage.getItem("carritoTienda");
+    if (carritoGuardado) {
+        carritoTienda = JSON.parse(carritoGuardado);
+        actualizadorCarrito();
+    }
+}
 document.addEventListener("DOMContentLoaded", () => {
     items();
     abrirCerrarCarrito()
     guardarCarritoEnLocalStorage();
+    cargarCarritoDeLocalStorage();
     pagar();
 })
+
 
